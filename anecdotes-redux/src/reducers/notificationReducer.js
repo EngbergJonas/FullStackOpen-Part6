@@ -1,26 +1,25 @@
-export const createNotification = content => {
+export const createNotification = notification => {
   return {
     type: 'NOTIFICATION',
-    data: { content }
+    data: { content: notification }
   }
 }
 
 export const clearNotification = () => {
   return {
-    type: 'CLEAR'
+    type: 'CLEAR',
+    data: { content: '' }
   }
 }
 
-const initialState = [ { content: '' } ]
+const initialState = ''
 
 const notificationReducer = (state = initialState, action) => {
-  console.log('NOTIFICATION action: ', action.data)
-  //console.log('NOTIFICATION state: ', action)
   switch (action.type) {
     case 'NOTIFICATION':
-      return action.data
+      return action.data.content
     case 'CLEAR':
-      return initialState
+      return action.data.content
     default:
       return state
   }

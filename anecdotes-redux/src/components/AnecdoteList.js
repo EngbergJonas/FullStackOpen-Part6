@@ -1,13 +1,17 @@
 import React from 'react'
-
+import { createNotification, clearNotification } from '../reducers/notificationReducer'
 const AnecdoteList = props => {
   const anecdotes = props.store.getState().anecdotes
 
-  const vote = id => {
+  const vote = (id, message) => {
     props.store.dispatch({
       type: 'VOTE',
       data: { id }
     })
+    props.store.dispatch(createNotification(`${message}, voted!`))
+    setTimeout(() => {
+      props.store.dispatch(clearNotification())
+    }, 5000)
   }
 
   const sortByVotes = arr => arr.sort((a, b) => a.votes - b.votes).reverse()
@@ -18,7 +22,7 @@ const AnecdoteList = props => {
         <div>{anecdote.content}</div>
         <div>
           has {anecdote.votes}
-          <button onClick={() => vote(anecdote.id)}>vote</button>
+          <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
         </div>
       </div>
     ))

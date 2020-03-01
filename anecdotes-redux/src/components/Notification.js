@@ -1,15 +1,7 @@
-import React, { useEffect } from 'react'
-import { clearNotification } from '../reducers/notificationReducer'
+import React from 'react'
 
 const Notification = props => {
-  const notification = props.store.getState().notification.content
-  console.log(props.store.getState().notification)
-
-  useEffect(() => {
-    setTimeout(() => {
-      clearNotification()
-    }, 5000)
-  }, [])
+  const notification = props.store.getState().notification
 
   const style = {
     display: notification ? '' : 'none',
