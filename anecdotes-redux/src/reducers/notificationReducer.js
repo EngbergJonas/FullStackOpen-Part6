@@ -1,4 +1,4 @@
-export const createNotification = notification => {
+export const setNotification = notification => {
   return {
     type: 'NOTIFICATION',
     data: { content: notification }

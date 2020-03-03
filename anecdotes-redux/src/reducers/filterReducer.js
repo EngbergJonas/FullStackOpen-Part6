@@ -8,8 +8,6 @@ export const setFilter = filter => {
 const initialState = ''
 
 const filterReducer = (state = initialState, action) => {
-  console.log(action, 'action')
-  console.log(state, 'state')
   switch (action.type) {
     case 'FILTER':
       return action.data.content

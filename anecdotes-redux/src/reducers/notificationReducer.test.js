@@ -1,11 +1,11 @@
-import notificationReducer, { createNotification, clearNotification } from './notificationReducer'
+import notificationReducer, { setNotification, clearNotification } from './notificationReducer'
 import deepFreeze from 'deep-freeze'
 
 describe('notificationReducer', () => {
   test('notification can be set', () => {
     const state = notificationReducer(undefined, { type: 'DO_NOTHING' })
 
-    const action = createNotification('New notification!')
+    const action = setNotification('New notification!')
 
     deepFreeze(state)
 
