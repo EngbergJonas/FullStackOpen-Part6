@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdoteReducer'
 
 const AnecdoteList = props => {
-  const vote = (id, message) => {
-    props.voteAnecdote(id)
+  const vote = (anecdote, message) => {
+    props.voteAnecdote(anecdote)
     props.setNotification(`${message}, voted!`)
     setTimeout(() => {
       props.clearNotification()
@@ -19,7 +19,7 @@ const AnecdoteList = props => {
           <div>{anecdote.content}</div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
+            <button onClick={() => vote(anecdote, anecdote.content)}>vote</button>
           </div>
         </div>
       ))}
