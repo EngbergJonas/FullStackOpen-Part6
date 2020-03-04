@@ -4,9 +4,6 @@ import { connect } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdoteReducer'
 
 const AnecdoteList = props => {
-  const anecdotes = props.anecdotes
-  const filterValue = props.filter
-
   const vote = (id, message) => {
     props.voteAnecdote(id)
     props.setNotification(`${message}, voted!`)
@@ -15,36 +12,40 @@ const AnecdoteList = props => {
     }, 5000)
   }
 
-  const sortAnecdotes = anecdotes => anecdotes.sort((a, b) => a.votes - b.votes).reverse()
-
-  const filterAnecdotes = (anecdotes, filterValue) =>
-    sortAnecdotes(anecdotes.filter(a => a.content.toLowerCase().includes(filterValue.toLowerCase())))
-
-  const anecdotesToShow = () =>
-    filterAnecdotes(anecdotes, filterValue).map(anecdote => (
-      <div key={anecdote.id}>
-        <div>{anecdote.content}</div>
-        <div>
-          has {anecdote.votes}
-          <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
+  return (
+    <div>
+      {props.visibleAnecdotes.map(anecdote => (
+        <div key={anecdote.id}>
+          <div>{anecdote.content}</div>
+          <div>
+            has {anecdote.votes}
+            <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
+          </div>
         </div>
-      </div>
-    ))
+      ))}
+    </div>
+  )
+}
 
-  return <div>{anecdotesToShow()}</div>
+const filterAnecdotes = ({ anecdotes, filter }) => {
+  return filter
+    ? anecdotes
+        .filter(a => a.content.toLowerCase().includes(filter.toLowerCase()))
+        .sort((a, b) => b.votes - a.votes)
+        .reverse()
+    : anecdotes.sort((a, b) => b.votes - a.votes).reverse()
 }
 
 const mapStateToProps = state => {
   return {
     anecdotes: state.anecdotes,
+    visibleAnecdotes: filterAnecdotes(state),
     filter: state.filter
   }
 }
 
-const mapDispatchToProps = {
+export default connect(mapStateToProps, {
   setNotification,
   clearNotification,
   voteAnecdote
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AnecdoteList)
+})(AnecdoteList)
