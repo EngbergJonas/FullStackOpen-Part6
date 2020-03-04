@@ -34,6 +34,16 @@
       "content": "so many anecdotes!",
       "votes": 0,
       "id": 9
+    },
+    {
+      "content": "Let's try again.",
+      "votes": 0,
+      "id": 10
+    },
+    {
+      "content": "With thunk?",
+      "votes": 0,
+      "id": 11
     }
   ]
 }

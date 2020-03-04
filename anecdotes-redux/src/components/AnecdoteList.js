@@ -29,11 +29,8 @@ const AnecdoteList = props => {
 
 const filterAnecdotes = ({ anecdotes, filter }) => {
   return filter
-    ? anecdotes
-        .filter(a => a.content.toLowerCase().includes(filter.toLowerCase()))
-        .sort((a, b) => b.votes - a.votes)
-        .reverse()
-    : anecdotes.sort((a, b) => b.votes - a.votes).reverse()
+    ? anecdotes.filter(a => a.content.toLowerCase().includes(filter.toLowerCase())).sort((a, b) => b.votes - a.votes)
+    : anecdotes.sort((a, b) => b.votes - a.votes)
 }
 
 const mapStateToProps = state => {
